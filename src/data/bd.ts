@@ -38,6 +38,12 @@ export const users: User[] = [
   },
 ];
 
+export const posts: Post[] = [
+  { id: 1, title: 'Primeiro Post', content: 'Conteúdo do primeiro post...', authorId: 1, createdAt: new Date(), published: true },
+  { id: 2, title: 'Receita de brownie', content: 'Passo a passo para um bolo perfeito.', authorId: 5, createdAt: new Date(), published: true },
+  { id: 3, title: 'Viagem ao Espaço', content: 'Minha experiência visitando a lua.', authorId: 4, createdAt: new Date(), published: false }
+];
+
 export interface Post {
   id: number;
   title: string;
@@ -47,5 +53,4 @@ export interface Post {
   published: boolean;
 }
 
-export const posts: Post[] = [];
 export let nextPostId = 1;
