@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserByIdController, getUsersByAgeRangeController } from "../controller/userController";
+import { getUserByIdController, getUsersByAgeRangeController, cleanupInactiveUsersController } from "../controller/userController";
 
 export const userRouter = express.Router();
 

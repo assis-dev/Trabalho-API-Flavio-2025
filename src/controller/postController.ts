@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import * as postBusiness from "../business/postBusiness";
-import { patchPost } from "../business/postBusiness";
 
 export const createPostController = (req: Request, res: Response) => {
   const { title, content, authorId } = req.body;
@@ -54,7 +53,7 @@ export const patchPostController = (req: Request, res: Response) => {
       return res.status(400).json({ success: false, message: "ID inválido" });
     }
 
-    const updatedPost = patchPost(postId, updates);
+    const updatedPost = postBusiness.patchPost(postId, updates);
 
     res.json({ success: true, post: updatedPost });
   } catch (error: any) {
@@ -68,5 +67,32 @@ export const patchPostController = (req: Request, res: Response) => {
 
     res.status(500).json({ success: false, message: "Erro interno do servidor" });
   }
+};
+
+export const deletePostController = (req: Request, res: Response) => {
+  const postId = parseInt(req.params.id);
+  // Assumindo que o ID do usuário vem de um header ou de um token de autenticação
+  const userId = parseInt(req.header("User-Id") as string);
+
+  if (isNaN(postId) || isNaN(userId)) {
+    return res.status(400).json({
+      success: false,
+      message: "Parâmetros inválidos. Envie postId na URL e User-Id no header.",
+    });
+  }
+
+  const result = postBusiness.deletePost(postId, userId);
+
+  if (result === true) {
+    return res.json({
+      success: true,
+      message: `Post ${postId} removido com sucesso.`,
+    });
+  }
+
+  return res.status(400).json({
+    success: false,
+    message: result,
+  });
 };
 
