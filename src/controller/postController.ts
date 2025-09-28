@@ -18,3 +18,29 @@ export const createPostController = (req: Request, res: Response) => {
     post: result,
   });
 };
+
+
+export const getPostByIdController = (req: Request, res: Response) => {
+  const postId = parseInt(req.params.id as string);
+
+  if (isNaN(postId)) {
+    return res.status(400).json({
+      success: false,
+      message: "ID do post inválido. Forneça um número."
+    });
+  }
+
+  const post = postBusiness.getPostById(postId);
+
+  if (!post) {
+    return res.status(404).json({
+      success: false,
+      message: "Post não encontrado."
+    });
+  }
+
+  res.json({
+    success: true,
+    data: post
+  });
+};

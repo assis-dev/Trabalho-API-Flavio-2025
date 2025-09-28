@@ -1,4 +1,6 @@
-import { createPost, checkAuthorExists, Post } from "../data/postData";
+import { createPost, checkAuthorExists, } from "../data/postData";
+import { findPostById } from "../data/postData";
+import { Post } from "../data/bd";
 
 export const createNewPost = (title: string, content: string, authorId: number): Post | string => {
   if (!title || title.length < 3) {
@@ -14,4 +16,9 @@ export const createNewPost = (title: string, content: string, authorId: number):
   }
 
   return createPost(title, content, authorId);
+};
+
+
+export const getPostById = (id: number): Post | undefined => {
+  return findPostById(id);
 };
