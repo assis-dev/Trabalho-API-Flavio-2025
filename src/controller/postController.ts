@@ -31,7 +31,7 @@ export const getPostByIdController = (req: Request, res: Response) => {
 
   const post = postBusiness.getPostById(postId);
 
-  if (!post) {
+  if (!postId) {
     return res.status(404).json({
       success: false,
       message: "Post não encontrado."
@@ -71,7 +71,7 @@ export const patchPostController = (req: Request, res: Response) => {
 
 export const deletePostController = (req: Request, res: Response) => {
   const postId = parseInt(req.params.id);
-  // Assumindo que o ID do usuário vem de um header ou de um token de autenticação
+  
   const userId = parseInt(req.header("User-Id") as string);
 
   if (isNaN(postId) || isNaN(userId)) {

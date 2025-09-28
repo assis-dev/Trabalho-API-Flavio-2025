@@ -40,8 +40,8 @@ export const users: User[] = [
 
 export const posts: Post[] = [
   { id: 1, title: 'Primeiro Post', content: 'Conteúdo do primeiro post...', authorId: 1, createdAt: new Date(), published: true },
-  { id: 2, title: 'Receita de brownie', content: 'Passo a passo para um bolo perfeito.', authorId: 5, createdAt: new Date(), published: true },
-  { id: 3, title: 'Viagem ao Espaço', content: 'Minha experiência visitando a lua.', authorId: 4, createdAt: new Date(), published: false }
+  { id: 2, title: 'Receita de brownie', content: 'Passo a passo para um brownie bom pra caramba.', authorId: 5, createdAt: new Date(), published: true },
+  { id: 3, title: 'Assisti Interstelar', content: 'Minha experiência com o melhor filme do mundo...', authorId: 4, createdAt: new Date(), published: false }
 ];
 
 export interface Post {
