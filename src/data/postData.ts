@@ -37,3 +37,18 @@ export const getAllPosts = (): Post[] => posts;
 export const findPostById = (id: number): Post | undefined => {
   return posts.find(p => p.id === id);
 };
+
+export const updatePost = (id: number, updates: Partial<Post>): Post | null => {
+  const postIndex = posts.findIndex((p) => p.id === id);
+
+  if (postIndex === -1) {
+    return null;
+  }
+
+  if ("id" in updates) {
+    throw new Error("Não é permitido alterar o ID");
+  }
+
+  posts[postIndex] = { ...posts[postIndex], ...updates };
+  return posts[postIndex];
+};

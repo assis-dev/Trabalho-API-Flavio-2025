@@ -1,6 +1,7 @@
 import { createPost, checkAuthorExists, } from "../data/postData";
 import { findPostById } from "../data/postData";
 import { Post } from "../data/bd";
+import { updatePost } from "../data/postData";
 
 export const createNewPost = (title: string, content: string, authorId: number): Post | string => {
   if (!title || title.length < 3) {
@@ -21,4 +22,15 @@ export const createNewPost = (title: string, content: string, authorId: number):
 
 export const getPostById = (id: number): Post | undefined => {
   return findPostById(id);
+};
+
+
+export const patchPost = (id: number, updates: Partial<Post>): Post => {
+  const updatedPost = updatePost(id, updates);
+
+  if (!updatedPost) {
+    throw new Error("Post não encontrado");
+  }
+
+  return updatedPost;
 };

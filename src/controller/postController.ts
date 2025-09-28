@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as postBusiness from "../business/postBusiness";
+import { patchPost } from "../business/postBusiness";
 
 export const createPostController = (req: Request, res: Response) => {
   const { title, content, authorId } = req.body;
@@ -18,7 +19,6 @@ export const createPostController = (req: Request, res: Response) => {
     post: result,
   });
 };
-
 
 export const getPostByIdController = (req: Request, res: Response) => {
   const postId = parseInt(req.params.id as string);
@@ -44,3 +44,29 @@ export const getPostByIdController = (req: Request, res: Response) => {
     data: post
   });
 };
+
+export const patchPostController = (req: Request, res: Response) => {
+  try {
+    const postId = parseInt(req.params.id);
+    const updates = req.body;
+
+    if (isNaN(postId)) {
+      return res.status(400).json({ success: false, message: "ID inválido" });
+    }
+
+    const updatedPost = patchPost(postId, updates);
+
+    res.json({ success: true, post: updatedPost });
+  } catch (error: any) {
+    if (error.message === "Post não encontrado") {
+      return res.status(404).json({ success: false, message: error.message });
+    }
+
+    if (error.message === "Não é permitido alterar o ID") {
+      return res.status(400).json({ success: false, message: error.message });
+    }
+
+    res.status(500).json({ success: false, message: "Erro interno do servidor" });
+  }
+};
+
