@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { cleanupInactiveUsers } from "../business/userBusiness";
 import * as userBusiness from "../business/userBusiness";
 
 export const getUserByIdController = (req: Request, res: Response) => {
@@ -51,3 +52,32 @@ export const getUsersByAgeRangeController = (req: Request, res: Response) => {
     users,
   });
 };
+
+
+export const cleanupInactiveUsersController = (req: Request, res: Response) => {
+  const confirm = req.query.confirm;
+
+  if (confirm !== "true") {
+    return res.status(400).json({
+      success: false,
+      message: "É necessário confirmar a exclusão com ?confirm=true",
+    });
+  }
+
+  const { removed, removedUsers } = cleanupInactiveUsers();
+
+  if (removed === 0) {
+    return res.status(200).json({
+      success: true,
+      message: "Nenhum usuário inativo encontrado para remoção.",
+      removedUsers: [],
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: `${removed} usuário(s) inativo(s) removido(s).`,
+    removedUsers,
+  });
+};
+
