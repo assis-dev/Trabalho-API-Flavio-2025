@@ -1,4 +1,5 @@
 import { users } from "./bd";
+import { posts, Post } from "./bd";
 
 export interface Post {
   id: number;
@@ -31,3 +32,8 @@ export const checkAuthorExists = (authorId: number): boolean => {
 };
 
 export const getAllPosts = (): Post[] => posts;
+
+
+export const findPostById = (id: number): Post | undefined => {
+  return posts.find(p => p.id === id);
+};
