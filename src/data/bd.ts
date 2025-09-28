@@ -18,6 +18,24 @@ export const users: User[] = [
     role: "user",
     status: "active",
   },
+  {
+    id: 2,
+    name: "Nikollas",
+    email: "nikollas@nikollas.com",
+    senha: "nikollas",
+    age: 46,
+    role: "user",
+    status: "active",
+  },
+  {
+    id: 3,
+    name: "Nilton",
+    email: "nilton@nilton.com",
+    senha: "nilton",
+    age: 24,
+    role: "user",
+    status: "active",
+  },
 ];
 
 export interface Post {

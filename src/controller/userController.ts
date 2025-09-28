@@ -53,7 +53,6 @@ export const getUsersByAgeRangeController = (req: Request, res: Response) => {
   });
 };
 
-
 export const cleanupInactiveUsersController = (req: Request, res: Response) => {
   const confirm = req.query.confirm;
 
